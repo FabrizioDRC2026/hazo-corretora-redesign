@@ -4,25 +4,50 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const moreToggle = document.querySelector("[data-more-toggle]");
 const navMore = document.querySelector(".nav-more");
 
+const closeNav = () => {
+  body.classList.remove("nav-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+  navToggle?.setAttribute("aria-label", "Abrir menu");
+};
+
 navToggle?.addEventListener("click", () => {
   const isOpen = body.classList.toggle("nav-open");
   navToggle.setAttribute("aria-expanded", String(isOpen));
+  navToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
 });
 
 nav?.addEventListener("click", (event) => {
   if (event.target instanceof HTMLAnchorElement) {
-    body.classList.remove("nav-open");
-    navToggle?.setAttribute("aria-expanded", "false");
+    closeNav();
   }
 });
 
-moreToggle?.addEventListener("click", () => {
+moreToggle?.addEventListener("click", (event) => {
+  event.stopPropagation();
   navMore?.classList.toggle("is-open");
 });
 
 document.addEventListener("click", (event) => {
   if (navMore && !navMore.contains(event.target)) {
     navMore.classList.remove("is-open");
+  }
+
+  if (
+    body.classList.contains("nav-open") &&
+    nav &&
+    navToggle &&
+    event.target instanceof Node &&
+    !nav.contains(event.target) &&
+    !navToggle.contains(event.target)
+  ) {
+    closeNav();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeNav();
+    navMore?.classList.remove("is-open");
   }
 });
 
