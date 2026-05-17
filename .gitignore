@@ -1,0 +1,13 @@
+# Local verification screenshots
+desktop*.png
+mobile*.png
+tablet*.png
+footer-mobile-final.png
+financiamentos-mobile.png
+seguros-desktop.png
+
+# Preview-only render from the Figma kit
+figma-presentation/preview.png
+
+# Original reference image kept locally, not required by the final site
+assets/hazo-campaign-reference.jpeg
