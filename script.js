@@ -17,7 +17,8 @@ navToggle?.addEventListener("click", () => {
 });
 
 nav?.addEventListener("click", (event) => {
-  if (event.target instanceof HTMLAnchorElement) {
+  const link = event.target instanceof Element ? event.target.closest("a") : null;
+  if (link) {
     closeNav();
   }
 });
@@ -80,3 +81,62 @@ document.querySelectorAll("[data-lead-form]").forEach((form) => {
     window.open(`https://wa.me/5517991341441?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   });
 });
+
+document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
+  const track = carousel.querySelector("[data-carousel-track]");
+  const cards = Array.from(carousel.querySelectorAll(".review-card"));
+  const prev = carousel.querySelector("[data-carousel-prev]");
+  const next = carousel.querySelector("[data-carousel-next]");
+  let active = 0;
+
+  if (!track || cards.length === 0) return;
+
+  const visibleCards = () => {
+    if (window.matchMedia("(max-width: 700px)").matches) return 1;
+    if (window.matchMedia("(max-width: 1060px)").matches) return 2;
+    return 3;
+  };
+
+  const updateCarousel = () => {
+    const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 0;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const maxActive = Math.max(0, cards.length - visibleCards());
+    active = Math.min(active, maxActive);
+    track.style.transform = `translateX(${-active * (cardWidth + gap)}px)`;
+    prev?.toggleAttribute("disabled", active === 0);
+    next?.toggleAttribute("disabled", active === maxActive);
+  };
+
+  prev?.addEventListener("click", () => {
+    active = Math.max(0, active - 1);
+    updateCarousel();
+  });
+
+  next?.addEventListener("click", () => {
+    active += 1;
+    updateCarousel();
+  });
+
+  window.addEventListener("resize", updateCarousel);
+  updateCarousel();
+});
+
+const revealItems = document.querySelectorAll(".reveal-on-scroll");
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16 }
+  );
+
+  revealItems.forEach((item) => revealObserver.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add("in-view"));
+}
