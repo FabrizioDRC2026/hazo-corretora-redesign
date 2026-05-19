@@ -88,6 +88,8 @@ document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
   const prev = carousel.querySelector("[data-carousel-prev]");
   const next = carousel.querySelector("[data-carousel-next]");
   let active = 0;
+  let autoplay;
+  let isPaused = false;
 
   if (!track || cards.length === 0) return;
 
@@ -107,18 +109,49 @@ document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
     next?.toggleAttribute("disabled", active === maxActive);
   };
 
+  const nextSlide = () => {
+    const maxActive = Math.max(0, cards.length - visibleCards());
+    active = active >= maxActive ? 0 : active + 1;
+    updateCarousel();
+  };
+
+  const pauseAutoplay = () => {
+    isPaused = true;
+  };
+
+  const resumeAutoplay = () => {
+    isPaused = false;
+  };
+
+  const startAutoplay = () => {
+    window.clearInterval(autoplay);
+    autoplay = window.setInterval(() => {
+      if (!isPaused && document.visibilityState === "visible") {
+        nextSlide();
+      }
+    }, 10000);
+  };
+
   prev?.addEventListener("click", () => {
     active = Math.max(0, active - 1);
     updateCarousel();
+    pauseAutoplay();
   });
 
   next?.addEventListener("click", () => {
-    active += 1;
-    updateCarousel();
+    nextSlide();
+    pauseAutoplay();
   });
 
+  carousel.addEventListener("pointerenter", pauseAutoplay);
+  carousel.addEventListener("pointerleave", resumeAutoplay);
+  carousel.addEventListener("touchstart", pauseAutoplay, { passive: true });
+  carousel.addEventListener("touchend", () => window.setTimeout(resumeAutoplay, 6000), { passive: true });
+  carousel.addEventListener("focusin", pauseAutoplay);
+  carousel.addEventListener("focusout", resumeAutoplay);
   window.addEventListener("resize", updateCarousel);
   updateCarousel();
+  startAutoplay();
 });
 
 const revealItems = document.querySelectorAll(".reveal-on-scroll");
