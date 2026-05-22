@@ -82,6 +82,21 @@ document.querySelectorAll("[data-lead-form]").forEach((form) => {
   });
 });
 
+document.querySelectorAll("[data-faq-item]").forEach((item) => {
+  const question = item.querySelector("[data-faq-question]");
+  const answer = item.querySelector("[data-faq-answer]");
+
+  if (!question || !answer) return;
+
+  question.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const isOpen = item.classList.toggle("is-open");
+    question.setAttribute("aria-expanded", String(isOpen));
+    answer.hidden = !isOpen;
+  });
+});
+
 document.querySelectorAll("[data-feedback-carousel]").forEach((carousel) => {
   const track = carousel.querySelector("[data-carousel-track]");
   const cards = Array.from(carousel.querySelectorAll(".review-card"));
