@@ -623,6 +623,12 @@ h3 {
   align-items: stretch;
 }
 
+.partner-logo-grid-real {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
 .partner-logo-card {
   display: flex;
   flex-direction: column;
@@ -640,6 +646,28 @@ h3 {
   text-align: center;
   line-height: 1.15;
   box-shadow: 0 18px 44px rgba(27, 45, 58, 0.07);
+}
+
+.real-logo-card {
+  min-height: 138px;
+  gap: 13px;
+  padding: 22px 18px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 174, 239, 0.08), transparent 48%),
+    #ffffff;
+}
+
+.real-logo-card img {
+  width: auto;
+  max-width: 112px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.real-logo-card strong {
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 900;
 }
 
 .partner-logo-card span:last-child:not(.logo-symbol) {
@@ -2054,12 +2082,26 @@ h3 {
     gap: 12px;
   }
 
+  .partner-logo-grid-real {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .partner-logo-card {
     min-width: 0;
     min-height: 86px;
     padding: 14px 10px;
     font-size: 0.92rem;
     overflow: hidden;
+  }
+
+  .real-logo-card {
+    min-height: 116px;
+    padding: 18px 12px;
+  }
+
+  .real-logo-card img {
+    max-width: 86px;
+    height: 44px;
   }
 
   .partner-logo-board {
