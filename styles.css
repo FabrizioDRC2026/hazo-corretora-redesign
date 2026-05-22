@@ -254,6 +254,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .solution-card,
 .review-card,
 .faq-item {
+  min-width: 0;
   text-align: left;
 }
 
@@ -271,6 +272,7 @@ h2,
 h3,
 p {
   margin-top: 0;
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -603,7 +605,10 @@ h3 {
 }
 
 .partner-logo-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   place-items: center;
   min-height: 104px;
   padding: 18px;
@@ -618,18 +623,49 @@ h3 {
   box-shadow: 0 18px 44px rgba(27, 45, 58, 0.07);
 }
 
-.partner-logo-card.porto { color: #008ad2; }
-.partner-logo-card.itau { color: #233e91; }
-.partner-logo-card.hdi { color: #06a85f; }
-.partner-logo-card.liberty { color: #17315d; }
-.partner-logo-card.mapfre { color: #e0332f; }
-.partner-logo-card.azul { color: #004b8d; }
-.partner-logo-card.bradesco { color: #d7192a; }
-.partner-logo-card.chubb { color: #00427a; }
-.partner-logo-card.zurich { color: #006cb7; }
-.partner-logo-card.sulamerica { color: #f58220; }
-.partner-logo-card.tokio { color: #177a5b; }
-.partner-logo-card.allianz { color: #005baa; }
+.partner-logo-card span:last-child:not(.logo-symbol) {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  font-weight: 850;
+  color: #5f6e7b;
+}
+
+.logo-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  min-height: 42px;
+  font-size: 1.28rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.partner-logo-card.porto .logo-symbol {
+  border-radius: 8px;
+  background: #009fe3;
+  color: #ffffff;
+}
+
+.partner-logo-card.itau .logo-symbol {
+  min-width: 86px;
+  min-height: 58px;
+  border-radius: 14px;
+  background: #233e91;
+  color: #ffe600;
+  font-size: 1.42rem;
+}
+
+.partner-logo-card.hdi .logo-symbol { color: #05a957; font-size: 2rem; }
+.partner-logo-card.liberty .logo-symbol { color: #17315d; }
+.partner-logo-card.mapfre .logo-symbol { color: #e0332f; font-size: 1.52rem; }
+.partner-logo-card.azul .logo-symbol { background: #004b8d; color: #ffffff; border-radius: 2px; }
+.partner-logo-card.bradesco .logo-symbol { color: #d7192a; }
+.partner-logo-card.chubb .logo-symbol { color: #00427a; font-size: 1.56rem; }
+.partner-logo-card.zurich .logo-symbol { color: #006cb7; font-size: 1.56rem; }
+.partner-logo-card.sulamerica .logo-symbol { color: #f58220; font-size: 1.38rem; }
+.partner-logo-card.tokio .logo-symbol { color: #177a5b; font-size: 1.22rem; }
+.partner-logo-card.allianz .logo-symbol { color: #005baa; font-size: 1.48rem; }
 
 .quote-guide {
   padding: 0 0 clamp(66px, 8vw, 112px);
@@ -797,6 +833,35 @@ h3 {
   margin-top: 3px;
   color: #77838e;
   font-size: 0.92rem;
+}
+
+.google-badge {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 5px !important;
+  padding: 5px 9px;
+  border: 1px solid #e4e9ef;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #4f5f6d !important;
+  font-size: 0.78rem !important;
+  font-weight: 850;
+  box-shadow: 0 6px 18px rgba(27, 45, 58, 0.06);
+}
+
+.google-g {
+  display: inline-grid !important;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin: 0 !important;
+  border-radius: 50%;
+  background: conic-gradient(#4285f4 0 25%, #34a853 0 50%, #fbbc05 0 75%, #ea4335 0);
+  color: #ffffff !important;
+  font-size: 0.72rem !important;
+  font-weight: 950;
 }
 
 .review-avatar {
@@ -981,27 +1046,43 @@ h3 {
 .compact-form input,
 .compact-form select,
 .professional-form input,
-.professional-form select {
+.professional-form select,
+.professional-form textarea {
   width: 100%;
-  height: 58px;
   border: 1px solid #d7e6ee;
   border-radius: 8px;
   background: #ffffff;
   color: var(--ink);
-  padding: 0 14px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.compact-form input,
+.compact-form select,
+.professional-form input,
+.professional-form select {
+  height: 58px;
+  padding: 0 14px;
+}
+
+.professional-form textarea {
+  min-height: 130px;
+  resize: vertical;
+  padding: 16px 14px;
+  line-height: 1.5;
 }
 
 .compact-form input:focus,
 .compact-form select:focus,
 .professional-form input:focus,
-.professional-form select:focus {
+.professional-form select:focus,
+.professional-form textarea:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 4px rgba(0, 174, 239, 0.18);
 }
 
 .compact-form button,
+.professional-form button,
 .full-field {
   grid-column: 1 / -1;
 }
@@ -1254,7 +1335,7 @@ h3 {
 }
 
 .about-cta-content {
-  max-width: 900px;
+  max-width: 980px;
 }
 
 .about-cta-content p {
@@ -1287,6 +1368,11 @@ h3 {
   font-size: 0.76rem;
   font-weight: 950;
   text-transform: uppercase;
+}
+
+.about-form {
+  margin-top: 28px;
+  box-shadow: 0 24px 66px rgba(27, 45, 58, 0.12);
 }
 
 .reveal-on-scroll {
@@ -1912,14 +1998,30 @@ h3 {
   }
 
   .partner-logo-card {
+    min-width: 0;
     min-height: 86px;
     padding: 14px 10px;
     font-size: 0.92rem;
+    overflow: hidden;
   }
 
   .solution-card {
+    width: 100%;
+    max-width: 100%;
     min-height: 0;
     padding: 30px 22px 26px;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .partners-heading,
+  .solution-card,
+  .review-card,
+  .faq-item,
+  .mvv-item {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .solution-badge {
