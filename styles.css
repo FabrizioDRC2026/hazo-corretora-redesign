@@ -627,6 +627,7 @@ h3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 1120px;
   margin: 0 auto;
+  gap: 20px;
 }
 
 .partner-logo-card {
@@ -649,24 +650,63 @@ h3 {
 }
 
 .real-logo-card {
-  min-height: 138px;
-  gap: 13px;
-  padding: 22px 18px;
+  position: relative;
+  min-height: 158px;
+  gap: 12px;
+  overflow: hidden;
+  padding: 28px 18px 24px;
+  border-color: rgba(0, 174, 239, 0.18);
   background:
-    radial-gradient(circle at 50% 0%, rgba(0, 174, 239, 0.08), transparent 48%),
+    radial-gradient(circle at 50% 0%, rgba(0, 174, 239, 0.11), transparent 48%),
+    linear-gradient(180deg, #ffffff 0%, #f8fcff 100%),
     #ffffff;
+  box-shadow: 0 20px 56px rgba(27, 45, 58, 0.09);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.real-logo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-strong));
+}
+
+.real-logo-card::after {
+  content: "Seguradora parceira";
+  color: #6a7885;
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.real-logo-card:hover,
+.real-logo-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(0, 174, 239, 0.34);
+  box-shadow: 0 28px 70px rgba(27, 45, 58, 0.14);
 }
 
 .real-logo-card img {
   width: auto;
-  max-width: 112px;
-  height: 58px;
+  max-width: 118px;
+  height: 62px;
   object-fit: contain;
+  padding: 7px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(27, 45, 58, 0.08);
+  transition: transform 160ms ease;
+}
+
+.real-logo-card:hover img,
+.real-logo-card:focus-visible img {
+  transform: scale(1.06);
 }
 
 .real-logo-card strong {
   color: var(--ink);
-  font-size: 0.94rem;
+  font-size: 1rem;
   font-weight: 900;
 }
 
@@ -830,6 +870,7 @@ h3 {
     radial-gradient(circle at 20% 0%, rgba(0, 174, 239, 0.08), transparent 38%),
     #ffffff;
   box-shadow: 0 20px 52px rgba(27, 45, 58, 0.08);
+  color: inherit;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
@@ -895,6 +936,12 @@ h3 {
   transform: translateY(-4px);
   border-color: rgba(0, 174, 239, 0.28);
   box-shadow: 0 24px 58px rgba(27, 45, 58, 0.12);
+  outline: none;
+}
+
+.review-card:hover .read-review,
+.review-card:focus-visible .read-review {
+  color: var(--blue-strong);
 }
 
 .review-head {
@@ -1355,6 +1402,15 @@ h3 {
   font-weight: 850;
 }
 
+.partner-features span.feature-chip-strong {
+  border-color: rgba(0, 174, 239, 0.34);
+  background:
+    linear-gradient(135deg, rgba(0, 174, 239, 0.13), rgba(255, 255, 255, 0.94)),
+    #ffffff;
+  color: var(--ink);
+  box-shadow: 0 18px 42px rgba(0, 119, 182, 0.12);
+}
+
 .partner-features svg,
 .mvv-icon svg {
   width: 22px;
@@ -1385,13 +1441,31 @@ h3 {
 }
 
 .mvv-item {
+  position: relative;
   display: grid;
   gap: 16px;
+  overflow: hidden;
   padding: 30px;
   border: 1px solid #dce8ef;
   border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 20px 54px rgba(27, 45, 58, 0.08);
+}
+
+.mvv-item-featured {
+  border-color: rgba(0, 174, 239, 0.3);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(0, 174, 239, 0.12), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #f7fcff 100%);
+  box-shadow: 0 26px 70px rgba(0, 119, 182, 0.14);
+}
+
+.mvv-item-featured::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-strong));
 }
 
 .mvv-icon {
